@@ -1,6 +1,7 @@
 import {
-    AccountRoleProperty,
     AccountStore,
+    LiabilityDirection,
+    LiabilityType,
     ShortAccountTypeProperty
 } from "firefly-iii-typescript-sdk-fetch/dist/models";
 import {AutoRunState} from "../background/auto_state";
@@ -15,9 +16,6 @@ import {openAccountForAutoRun} from "./auto_run/accounts";
 import {runOnURLMatch} from "../common/buttons";
 import {runOnContentChange} from "../common/autorun";
 
-// TODO: You will need to update manifest.json so this file will be loaded on
-//  the correct URL.
-
 let pageAlreadyScraped = false;
 
 async function scrapeAccountsFromPage(): Promise<AccountStore[]> {
@@ -29,8 +27,6 @@ async function scrapeAccountsFromPage(): Promise<AccountStore[]> {
         const accountNumber = getAccountNumber(element)
         const accountName = getAccountName(element);
         const openingBalance = getOpeningBalance(element);
-        // TODO: Double-check these values. You may need to update them based
-        //  on the account element or bank.
         let openingBalanceBalance: string | undefined;
         if (openingBalance) {
             openingBalanceBalance = `-${openingBalance.balance}`;
@@ -42,8 +38,9 @@ async function scrapeAccountsFromPage(): Promise<AccountStore[]> {
             accountNumber: accountNumber,
             openingBalance: openingBalanceBalance,
             openingBalanceDate: openingBalance?.date,
-            type: ShortAccountTypeProperty.Asset,
-            accountRole: AccountRoleProperty.DefaultAsset,
+            type: ShortAccountTypeProperty.Liability,
+            liabilityType: LiabilityType.Mortgage,
+            liabilityDirection: LiabilityDirection.Debit,
             currencyCode: "CAD",
         };
         return as;
@@ -89,7 +86,7 @@ function enableAutoRun() {
 }
 
 runOnURLMatch(
-    'accounts/main/details', // TODO: Set this to your accounts page URL
+    'iPad_ARMuser_MyTask.html',
     () => !!document.getElementById(buttonId),
     () => {
         pageAlreadyScraped = false;
@@ -98,6 +95,6 @@ runOnURLMatch(
 );
 
 runOnContentChange(
-    'accounts/main/details', // TODO: Set this to your accounts page URL
+    'iPad_ARMuser_MyTask.html',
     enableAutoRun,
 )

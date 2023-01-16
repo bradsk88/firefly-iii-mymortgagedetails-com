@@ -1,7 +1,8 @@
 {
-  "name": "My Firefly III OAuth2 Extension",
+  "name": "MyMortgageDetails -> Firefly III",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA6BsJ0LjyNbmuozEQoMARnUZ6NoqxQt/MYB0diIp+WkBRA8fJzE31msjvYjJg/HEX2XBqzgofLxzIs6/DdYvTSuvtYtivB+oGBMm5/m9Lukh6IGmJv6p6dyF6NTq3efGoRZ7Bw9kCryQ5RoRa4cW/Qgwqjh65xLZYVvqXCWiyvLPfjaN0dXHtIXarrAW1SV71QZBK3GAz3bXNPDrpDqOnz8IVKt0Pw6F8aLzPqFyR6eCtr08W7srXM3cy17TU2Gw3XZhnlnAixRUOUZpi40TZ2YCgvZR0OEoxrZuVhVGNOwgLv7CpFkAI1/5nF0tGR3JgcocVMQlHUwR81D36Jb9D6wIDAQAB",
   "version": "1.0",
-  "description": "Description goes here",
+  "description": "Scrapes account and transaction data from MyMortgageDetails (E.g. Lendwise) into Firefly III",
   "permissions": [
     "storage",
     "tabs"
@@ -15,24 +16,27 @@
   },
   "content_scripts": [
     {
-      "matches": ["https://*.example.com/*"],
+      "matches": ["https://*.mymortgagedetails.com/*"],
       "js": ["./dist/auto.js"]
     },
     {
-      "matches": ["https://*.example.com/*"],
+      "matches": ["https://*.mymortgagedetails.com/*"],
       "js": ["./dist/accounts.js"]
     },
     {
-      "matches": ["https://*.example.com/*"],
+      "matches": ["https://*.mymortgagedetails.com/*"],
       "js": ["./dist/transactions.js"]
     },
     {
-      "matches": ["https://*.example.com/*"],
+      "matches": ["https://*.mymortgagedetails.com/*"],
       "js": ["./dist/opening.js"]
     }
   ],
+  "manifest_version": 3,
   "action": {
     "default_popup": "options.html"
   },
-  "manifest_version": 3
+  "icons": {
+    "128": "logo-128.png"
+  }
 }
