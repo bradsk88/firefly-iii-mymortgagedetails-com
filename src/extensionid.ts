@@ -1,3 +1,3 @@
-export const autoRunStartURL = ''; // TODO: Put the URL where the auto run should start
+export const autoRunStartURL = 'https://lendwise.mymortgagedetails.com';
 export const extensionId = 'llcgahllijclejjllnamojdefakdcbhm';
 export const hubExtensionId = 'kcghjdbnjdaabfigmmjgmgiaehjidpoh';
