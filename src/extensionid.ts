@@ -1,3 +1,4 @@
+export const bankDomain = 'mymortgagedetails.com';
 export const autoRunStartURL = 'https://lendwise.mymortgagedetails.com';
 export const extensionPrimaryColorHex = 'FFFFFF';
 export const extensionSecondaryColorHex = '017ca5';
