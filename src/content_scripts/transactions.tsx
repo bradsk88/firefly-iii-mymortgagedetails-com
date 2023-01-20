@@ -12,8 +12,8 @@ interface TransactionScrape {
 
 let pageAlreadyScraped = false;
 
-async function doScrape(): Promise<TransactionScrape> {
-    if (pageAlreadyScraped) {
+async function doScrape(isAutoRun: boolean): Promise<TransactionScrape> {
+    if (isAutoRun && pageAlreadyScraped) {
         throw new Error("Already scraped. Stopping.");
     }
 
@@ -25,6 +25,7 @@ async function doScrape(): Promise<TransactionScrape> {
     pageAlreadyScraped = true;
     await chrome.runtime.sendMessage({
             action: "store_transactions",
+            is_auto_run: isAutoRun,
             value: txs,
         },
         () => {
@@ -44,7 +45,7 @@ const buttonId = 'firefly-iii-export-transactions-button';
 function addButton() {
     const button = document.createElement("button");
     button.textContent = "Export Transactions"
-    button.addEventListener("click", async () => doScrape(), false);
+    button.addEventListener("click", async () => doScrape(false), false);
     // TODO: Try to steal styling from the page to make this look good :)
     button.classList.add("some", "classes", "from", "the", "page");
     getButtonDestination().append(button);
@@ -55,7 +56,7 @@ function enableAutoRun() {
         action: "get_auto_run_state",
     }).then(state => {
         if (state === AutoRunState.Transactions) {
-            doScrape()
+            doScrape(true)
                 .then((id: TransactionScrape) => chrome.runtime.sendMessage({
                     action: "increment_auto_run_tx_account",
                     lastAccountNameCompleted: id.pageAccount.name,

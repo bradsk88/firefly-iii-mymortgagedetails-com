@@ -1,4 +1,3 @@
-import {sha512} from "js-sha512";
 import {OpeningBalance} from "../../background/firefly_export";
 import {priceFromString} from "../../common/prices";
 
