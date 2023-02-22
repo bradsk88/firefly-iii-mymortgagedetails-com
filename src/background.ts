@@ -45,13 +45,10 @@ function registerSelfWithHubExtension() {
     })
 }
 
-chrome.runtime.onStartup.addListener(function () {
+chrome.runtime.onInstalled.addListener(function () {
     setTimeout(registerSelfWithHubExtension, 1000);
     setTimeout(registerSelfWithHubExtension, 5000);
 })
-
-setTimeout(registerSelfWithHubExtension, 1000);
-setTimeout(registerSelfWithHubExtension, 5000);
 
 chrome.runtime.onMessageExternal.addListener((msg: any, sender: MessageSender, sendResponse: Function) => {
     if (sender.id != hubExtensionId) {

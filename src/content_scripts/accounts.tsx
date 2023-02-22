@@ -30,7 +30,7 @@ async function scrapeAccountsFromPage(isAutoRun: boolean): Promise<AccountStore[
     }
 
     const accountElements = getAccountElements();
-    if (accountElements?.length === 0) { // TODO: Need to check if single account?
+    if (accountElements?.length === 0) {
         throw new Error("Accounts are not present yet.")
     }
     const accounts = accountElements.map(element => {
@@ -133,6 +133,6 @@ runOnContentChange(
     // You might need to play with this. Some banks don't completely reload the
     // page. So you might need to observe a higher level DOM element, instead.
     // As a last resort, you can use document.body, but that will cause lag.
-    () => getAccountElements()[0],
+    undefined,
     'accounts',
 )

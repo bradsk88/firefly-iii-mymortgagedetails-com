@@ -1,16 +1,13 @@
 import {OpeningBalance} from "../../background/firefly_export";
 import {priceFromString} from "../../common/prices";
 
-// TODO: add to base project if not already
 export function getButtonDestination(): Element {
     const sideBar = document.getElementById("side-root")!;
     return sideBar.querySelector("[data-role='navbar']")!
 }
 
 export function isPageReadyForScraping(): boolean {
-    // TODO: Some banks load accounts in slowly. Find a DOM element that is
-    //  only present on the page once the accounts are fully loaded.
-    return !!document.querySelector('span.account__details-number');
+    return true;
 }
 
 export function getAccountElements(): Element[] {
@@ -18,8 +15,6 @@ export function getAccountElements(): Element[] {
 }
 
 export function shouldSkipScrape(accountElement: Element): boolean {
-    // TODO: If there are some types of accounts on the page that can't be
-    //  scraped, return true for those here and they will be skipped.
     return false;
 }
 
